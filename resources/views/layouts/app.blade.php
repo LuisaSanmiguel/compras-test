@@ -51,15 +51,21 @@
                         @else
 
 
+                        <li class="nav-item ">
+                            <a href="/suppliers" class="nav-link" >
+                                Proveedores
+                            </a>
+                        </li>
                             <li class="nav-item ">
-                                <router-link  class="nav-link" tag="li" to="/product" exact>
-                                    <a>Productos</a>
-                                </router-link></li>
-
-                                <li class="nav-item ">
-                                    <router-link  class="nav-link" tag="li" to="/purchase" exact>
-                                        <a>Compras</a>
-                                    </router-link></li>
+                                    <a href="/products" class="nav-link" >
+                                        Productos
+                                    </a>
+                            </li>
+                            <li class="nav-item ">
+                                    <a href="/purchases" class="nav-link" >
+                                        Compras
+                                    </a>
+                            </li>
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -67,8 +73,6 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" > <router-link :to="{ name: 'purchase' }">Compras</router-link></a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -92,6 +96,7 @@
         </main>
     </div>
 </body>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    @yield('js')
 </html>

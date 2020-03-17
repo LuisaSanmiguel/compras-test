@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\purchaseDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseDetailController extends Controller
 {
@@ -35,6 +37,27 @@ class PurchaseDetailController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'purchase_id'        => 'required',
+            'product_id'         => 'required',
+            'quantity'           => 'required',
+            'cost'               => 'required',
+            'total_cost'         => 'required',
+             ]);
+
+        $purchaseDetail = purchaseDetail::create([
+             'purchase_id'        => request('purchase_id'),
+             'product_id'         => request('product_id'),
+             'quantity'           => request('quantity'),
+             'cost'               => request('cost'),
+             'total_cost'         => request('total_cost'),
+         ]);
+
+         return response()->json([
+            'purchaseDetail'    => $purchaseDetail,
+            'message' => 'success'
+        ], 200);
+
     }
 
     /**
@@ -46,6 +69,15 @@ class PurchaseDetailController extends Controller
     public function show($id)
     {
         //
+
+        $purchaseDetails = DB::table('purchase_details')
+        ->where('purchase_details.purchase_id','=',$id)
+        ->join('products','purchase_details.product_id','=','products.id')
+        ->select('purchase_details.*','products.name as product_name')
+        ->get();
+             return response()->json([
+            'purchaseDetails'    => $purchaseDetails,
+            ], 200);
     }
 
     /**
@@ -69,6 +101,8 @@ class PurchaseDetailController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+
     }
 
     /**

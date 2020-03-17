@@ -1,8 +1,10 @@
-<template>
-   <div class="container">
-       <div class="row">
-           <div class="col-sm-12">
-               <div class="card">
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
+            <div class="card" id="app">
                    <div class="card-header">
                        <h2>Lista de Productos</h2>
 
@@ -22,8 +24,8 @@
                                         </thead>
                                 <tbody>
                                         <tr v-for="(product, index) in products">
-                                            <td>{{ index + 1 }}</td>
-                                            <td>{{ product.name }}</td>
+                                            <td>@{{ index + 1 }}</td>
+                                            <td>@{{ product.name }}</td>
                                             <td>
                                                 <button @click="initUpdate(index)" class="btn btn-success btn-xs" style="padding:8px"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                                 <button @click="deleteproduct(index)" class="btn btn-danger btn-xs" style="padding:8px"><i class="fa fa-close" aria-hidden="true"></i></button>
@@ -35,91 +37,89 @@
                             </table>
                    </div>
                </div>
-           </div>
-       </div>
-
-
-<!-- modal para agregar nuevo producto -------------------------------------------------------- -->
-
-       <div class="modal fade" tabindex="-1" role="dialog" id="add_product_model">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                   <h4 class="modal-title">Agregar Nuevo Producto</h4> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-                </div>
-
-                <div class="modal-body">
-                    <div class="alert alert-danger" v-if="errors.length > 0">
-                        <ul>
-                            <li v-for="error in errors">{{ error }}</li>
-                        </ul>
-                    </div>
-                    <div class="form-group">
-                        <label for="names">Nombre:</label>
-                        <input type="text" name="name" id="name" placeholder="Escriba en nombre del producto" class="form-control"
-                            v-model="product.name">
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" @click="createproduct" class="btn btn-primary">Guardar</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                </div>
-
-             </div>
-           </div>
-        </div>
-
- <!-- Fin de modal para agregar nuevo producto -------------------------------------------------------- -->
-
-
- <!-- modal para Editar producto -------------------------------------------------------- -->
-
-<div class="modal fade" tabindex="-1" role="dialog" id="update_product_model">
-    <div class="modal-dialog" role="document">
-         <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Actualizar producto</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-                </div>
-
-                <div class="modal-body">
-                    <div class="alert alert-danger" v-if="errors.length > 0">
-                        <ul>
-                            <li v-for="error in errors">{{ error }}</li>
-                        </ul>
-                    </div>
-                    <div class="form-group">
-                        <label>Nombre:</label>
-                        <input type="text" placeholder="Escriba el nombre del producto" class="form-control"
-                            v-model="update_product.name">
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" @click="updateproduct" class="btn btn-primary">Guardar</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                </div>
-
-            </div>
         </div>
     </div>
-    <!-- Fin de modal para Editar producto -------------------------------------------------------- -->
 
-   </div>
-</template>
+    <!-- modal para agregar nuevo producto -------------------------------------------------------- -->
+
+   <div class="modal fade" tabindex="-1" role="dialog" id="add_product_model">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+               <h4 class="modal-title">Agregar Nuevo Producto</h4> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="alert alert-danger" v-if="errors.length > 0">
+                    <ul>
+                        <li v-for="error in errors">@{{ error }}</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label for="names">Nombre:</label>
+                    <input type="text" name="name" id="name" placeholder="Escriba en nombre del producto" class="form-control"
+                        v-model="product.name">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" @click="createproduct" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+
+         </div>
+       </div>
+    </div>
+
+     <!-- Fin de modal para agregar nuevo producto -------------------------------------------------------- -->
 
 
-<script>
-export default {
+     <!-- modal para Editar producto -------------------------------------------------------- -->
 
-        data(){
+    <div class="modal fade" tabindex="-1" role="dialog" id="update_product_model">
+        <div class="modal-dialog" role="document">
+             <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Actualizar producto</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="alert alert-danger" v-if="errors.length > 0">
+                            <ul>
+                                <li v-for="error in errors">@{{ error }}</li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <input type="text" placeholder="Escriba el nombre del producto" class="form-control"
+                                v-model="update_product.name">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" @click="updateproduct" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Fin de modal para Editar producto -------------------------------------------------------- -->
+</div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        var app = new Vue({
+          el: '#app',
+          data(){
             return {
                 product: {
-                name: ''
+                    name: ''
                 },
                 errors: [],
                 products: [],
@@ -139,7 +139,7 @@ export default {
                 let conf = confirm("Esta seguro que quiere borrar este producto?");
                 if (conf === true)
                 {
-                        axios.delete('/product/' + this.products[index].id)
+                        axios.delete('/api/product/' + this.products[index].id)
                         .then(response => {
                             this.products.splice(index, 1);
                         })
@@ -155,7 +155,7 @@ export default {
 
             createproduct()
             {
-                axios.post('/product',
+                axios.post('/api/product',
                         {
                             name: this.product.name,
                         })
@@ -186,7 +186,7 @@ export default {
 
             readproducts()
             {
-                axios.get('/product')
+                axios.get('/api/product')
                     .then(response => {
                         this.products = response.data.products;
                     });
@@ -203,7 +203,8 @@ export default {
             updateproduct()
 
             {
-                axios.patch('/product/' + this.update_product.id, {
+                axios.patch('/api/product/' + this.update_product.id, {
+
                 name: this.update_product.name
                 })
 
@@ -221,7 +222,7 @@ export default {
             }
 
 }
+        })
+    </script>
+@stop
 
-}
-
-</script>

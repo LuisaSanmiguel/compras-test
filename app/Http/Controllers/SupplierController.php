@@ -41,6 +41,18 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'name'        => 'required',
+             ]);
+
+        $supplier = supplier::create([
+             'name'        => request('name'),
+         ]);
+
+        return response()->json([
+             'supplier'    => $supplier,
+             'message' => 'success'
+         ], 200);
     }
 
     /**
@@ -75,6 +87,19 @@ class SupplierController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+
+        $this->validate($request, [
+            'name'        => 'required|max:255',
+        ]);
+        $supplier = supplier::findOrFail($id);
+        $supplier->name = request('name');
+        $supplier->save();
+
+        return response()->json([
+            'supplier'    => $supplier,
+            'message' => 'success'
+        ], 200);
     }
 
     /**

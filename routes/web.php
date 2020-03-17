@@ -21,6 +21,18 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/product', 'ProductController');
-Route::resource('/purchase', 'PurchaseController');
-Route::resource('/supplier', 'SupplierController');
+
+Route::get('/products', function(){
+	return view('products');
+});
+
+Route::get('/purchases', function(){
+	return view('purchases');
+});
+
+
+Route::get('/suppliers', function(){
+	return view('suppliers');
+});
+// Route::resource('/purchaseDetails', 'purchaseDetailController');
+

@@ -19,6 +19,7 @@ class PurchaseController extends Controller
         $purchases = DB::table('purchases')
         ->join('suppliers','purchases.supplier_id','=','suppliers.id')
         ->select('purchases.*','suppliers.name as supplier_name')
+        ->orderBy('date','DESC')
         ->get();
              return response()->json([
             'purchases'    => $purchases,
@@ -44,6 +45,24 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->validate($request, [
+            'date'=>'required',
+            'supplier_id'=>'required',
+
+             ]);
+
+        $purchase = purchase::create([
+             'date'=>request('date'),
+             'supplier_id'=>request('supplier_id'),
+             'state'=> 'IN_PROGRESS',
+             'total_cost'=> 0,
+         ]);
+
+        return response()->json([
+             'purchase'=> $purchase,
+             'message' => 'success'
+         ], 200);
     }
 
     /**
@@ -78,6 +97,16 @@ class PurchaseController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $purchase = purchase::findOrFail($id);
+        $purchase->total_cost += $request('total_cost');
+        $purchase->save();
+
+        return $purchase;
+        // return response()->json([
+        //     'purchase'    => $purchase,
+        //     'message' => 'success'
+        // ], 200);
     }
 
     /**

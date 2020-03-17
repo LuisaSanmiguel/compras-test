@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
    {
-       $products = product::all();
+       $products = product::OrderBy('name','ASC')->get();
        return response()->json([
            'products'    => $products,
        ], 200);
