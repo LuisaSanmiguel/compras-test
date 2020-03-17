@@ -1,5 +1,5 @@
 Clonar
-En Window$ necesitas git-scm para hacer el siguiente comando:
+
 
 $ git clone https://github.com/LuisaSanmiguel/compras-test.git
 
