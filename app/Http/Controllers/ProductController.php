@@ -15,6 +15,8 @@ class ProductController extends Controller
     public function index()
    {
        $products = Product::OrderBy('name','ASC')->get();
+
+
        return response()->json([
            'products'    => $products,
        ], 200);
@@ -50,7 +52,7 @@ class ProductController extends Controller
          ]);
 
         return response()->json([
-             'product'    => $product,
+             'product' => $product,
              'message' => 'success'
          ], 200);
     }
@@ -91,6 +93,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'name'        => 'required|max:255',
         ]);
+
         $product = Product::findOrFail($id);
         $product->name = request('name');
         $product->save();
@@ -110,5 +113,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        Product::destroy($id);
+
     }
 }

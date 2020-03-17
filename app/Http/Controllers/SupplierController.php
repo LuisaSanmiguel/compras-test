@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\supplier;
+use App\Http\Models\Supplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -111,5 +111,8 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         //
+
+        Supplier::destroy($id);
+
     }
 }

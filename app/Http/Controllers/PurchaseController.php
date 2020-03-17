@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\Purchase;
+use App\Http\Models\PurchaseDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Environment\Console;
@@ -121,7 +122,9 @@ class PurchaseController extends Controller
     public function destroy($id)
     {
         //
-      ;
+
+
+        Purchase::destroy($id);
 
     }
 

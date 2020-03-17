@@ -148,5 +148,13 @@ class PurchaseDetailController extends Controller
     public function destroy($id)
     {
         //
+        $purchaseDetail = purchaseDetail::findOrFail($id);
+        $purchase_id = $purchaseDetail->purchase_id;
+
+        $purchase = Purchase::find($purchase_id);
+        $purchase->total_cost = ($purchase->total_cost - $purchaseDetail->total_cost );
+        $purchase->save();
+
+        purchaseDetail::destroy($id);
     }
 }
