@@ -17,7 +17,7 @@ class CreatePurchasesTable extends Migration
             $table->bigIncrements('id');
             $table->date('date');
             $table->bigInteger('supplier_id')->unsigned()->index();
-            $table->enum('state',['IN_PROGESS','RECEIVED','CANCELLED']);
+            $table->enum('state',['IN_PROGRESS','RECEIVED','CANCELLED']);
             $table->bigInteger('total_cost');
             $table->timestamps();
         });
