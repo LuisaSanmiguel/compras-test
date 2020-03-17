@@ -16,7 +16,7 @@ class SupplierController extends Controller
     {
         //
 
-        $suppliers = supplier::all();
+        $suppliers = Supplier::all();
         return response()->json([
             'suppliers'    => $suppliers,
         ], 200);
@@ -45,7 +45,7 @@ class SupplierController extends Controller
             'name'        => 'required',
              ]);
 
-        $supplier = supplier::create([
+        $supplier = Supplier::create([
              'name'        => request('name'),
          ]);
 
@@ -92,7 +92,7 @@ class SupplierController extends Controller
         $this->validate($request, [
             'name'        => 'required|max:255',
         ]);
-        $supplier = supplier::findOrFail($id);
+        $supplier = Supplier::findOrFail($id);
         $supplier->name = request('name');
         $supplier->save();
 

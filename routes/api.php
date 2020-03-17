@@ -17,6 +17,9 @@ Route::resource('/product', 'ProductController');
 Route::resource('/purchase', 'PurchaseController');
 Route::resource('/purchaseDetail', 'PurchaseDetailController');
 Route::resource('/supplier', 'SupplierController');
+Route::get('/purchaseDetailOne/{id}', 'PurchaseDetailController@one');
+Route::get('/cancelledPurchase/{id}', 'PurchaseController@cancelled');
+Route::get('/receivedPurchase/{id}', 'PurchaseController@received');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

@@ -18,14 +18,14 @@ class CreatePurchaseDetailsTable extends Migration
             $table->bigInteger('purchase_id')->unsigned()->index();
             $table->bigInteger('product_id')->unsigned()->index();
             $table->integer('quantity');
-            $table->integer('cost');
-            $table->integer('total_cost');
+            $table->bigInteger('cost');
+            $table->bigInteger('total_cost');
             $table->timestamps();
         });
 
         Schema::table('purchase_details', function($table) {
             $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('purchase_id')->references('consecutive')->on('purchases');
+            $table->foreign('purchase_id')->references('id')->on('purchases');
         });
 
     }

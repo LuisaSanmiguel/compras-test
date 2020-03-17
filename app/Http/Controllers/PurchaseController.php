@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\purchase;
+use App\Http\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\Environment\Console;
 
 class PurchaseController extends Controller
 {
@@ -52,7 +53,7 @@ class PurchaseController extends Controller
 
              ]);
 
-        $purchase = purchase::create([
+        $purchase = Purchase::create([
              'date'=>request('date'),
              'supplier_id'=>request('supplier_id'),
              'state'=> 'IN_PROGRESS',
@@ -98,15 +99,17 @@ class PurchaseController extends Controller
     {
         //
 
-        $purchase = purchase::findOrFail($id);
-        $purchase->total_cost += $request('total_cost');
+        $purchase = Purchase::findOrFail($id);
+        $purchase->date = request('date');
+        $purchase->supplier_id = request('supplier_id');
+
         $purchase->save();
 
-        return $purchase;
-        // return response()->json([
-        //     'purchase'    => $purchase,
-        //     'message' => 'success'
-        // ], 200);
+
+        return response()->json([
+            'purchase'    => $purchase,
+            'message' => 'success'
+        ], 200);
     }
 
     /**
@@ -118,5 +121,27 @@ class PurchaseController extends Controller
     public function destroy($id)
     {
         //
+      ;
+
+    }
+
+    public function cancelled($id)
+    {
+        //
+
+        $purchase = Purchase::findOrFail($id);
+        $purchase->state = 'CANCELLED';
+        $purchase->save();
+
+    }
+
+    public function received($id)
+    {
+        //
+
+        $purchase = Purchase::findOrFail($id);
+        $purchase->state = 'RECEIVED';
+        $purchase->save();
+
     }
 }

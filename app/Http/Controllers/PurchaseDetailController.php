@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\purchaseDetail;
+use App\Http\Models\Purchase;
+use App\Http\Models\PurchaseDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -53,6 +54,10 @@ class PurchaseDetailController extends Controller
              'total_cost'         => request('total_cost'),
          ]);
 
+        $purchase = Purchase::find(request('purchase_id'));
+        $purchase->total_cost = $purchase->total_cost+$purchaseDetail->total_cost;
+        $purchase->save();
+
          return response()->json([
             'purchaseDetail'    => $purchaseDetail,
             'message' => 'success'
@@ -70,16 +75,28 @@ class PurchaseDetailController extends Controller
     {
         //
 
-        $purchaseDetails = DB::table('purchase_details')
-        ->where('purchase_details.purchase_id','=',$id)
-        ->join('products','purchase_details.product_id','=','products.id')
-        ->select('purchase_details.*','products.name as product_name')
-        ->get();
+            $purchaseDetails = DB::table('purchase_details')
+            ->where('purchase_details.purchase_id','=',$id)
+            ->join('products','purchase_details.product_id','=','products.id')
+            ->select('purchase_details.*','products.name as product_name')
+            ->get();
+
              return response()->json([
             'purchaseDetails'    => $purchaseDetails,
             ], 200);
     }
 
+    public function one($id)
+    {
+        //
+
+            $purchaseDetail = PurchaseDetail::where('purchase_details.id','=',$id)
+            ->get();
+
+             return response()->json([
+            'purchaseDetail'    => $purchaseDetail,
+            ], 200);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -101,7 +118,24 @@ class PurchaseDetailController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $purchaseDetail = purchaseDetail::findOrFail($id);
 
+        $purchase = Purchase::find(request('purchase_id'));
+        $purchase->total_cost = ($purchase->total_cost - $purchaseDetail->total_cost )+ request('total_cost');
+        $purchase->save();
+
+        $purchaseDetail->purchase_id = request('purchase_id');
+
+        $purchaseDetail->quantity = request('quantity');
+        $purchaseDetail->cost = request('cost');
+        $purchaseDetail->total_cost = request('total_cost');
+
+        $purchaseDetail->save();
+
+        return response()->json([
+            'purchaseDetail'    => $purchaseDetail,
+            'message' => 'success'
+        ], 200);
 
     }
 

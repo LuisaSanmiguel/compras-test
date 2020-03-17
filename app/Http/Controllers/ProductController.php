@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\product;
+use App\Http\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
    {
-       $products = product::OrderBy('name','ASC')->get();
+       $products = Product::OrderBy('name','ASC')->get();
        return response()->json([
            'products'    => $products,
        ], 200);
@@ -45,7 +45,7 @@ class ProductController extends Controller
             'name'        => 'required',
              ]);
 
-        $product = product::create([
+        $product = Product::create([
              'name'        => request('name'),
          ]);
 
@@ -91,7 +91,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'name'        => 'required|max:255',
         ]);
-        $product = product::findOrFail($id);
+        $product = Product::findOrFail($id);
         $product->name = request('name');
         $product->save();
 

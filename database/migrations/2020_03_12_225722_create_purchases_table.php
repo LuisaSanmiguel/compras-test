@@ -14,11 +14,11 @@ class CreatePurchasesTable extends Migration
     public function up()
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->bigIncrements('consecutive');
+            $table->bigIncrements('id');
             $table->date('date');
             $table->bigInteger('supplier_id')->unsigned()->index();
             $table->enum('state',['IN_PROGESS','RECEIVED','CANCELLED']);
-            $table->float('total_cost');
+            $table->bigInteger('total_cost');
             $table->timestamps();
         });
 

@@ -43,10 +43,10 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                             </li>
                         @else
 
@@ -57,7 +57,7 @@
                             </a>
                         </li>
                             <li class="nav-item ">
-                                    <a href="/products" class="nav-link" >
+                                    <a href={{url("/products")}} class="nav-link" >
                                         Productos
                                     </a>
                             </li>
